@@ -1,4 +1,5 @@
 const el = document.querySelector('.item');
+const container = document.querySelector(`.container`);
 
 el.addEventListener(`mousedown`, mousedown);
 
@@ -13,10 +14,10 @@ function mousedown(e) {
     let newX = prevX - e.clientX;
     let newY = prevY - e.clientY;
 
-    const rect = el.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
 
-    el.style.left = rect.left - newX + `px`;
-    el.style.top = rect.top - newY + `px`;
+    container.style.left = rect.left - newX + `px`;
+    container.style.top = rect.top - newY + `px`;
 
     prevX = e.clientX;
     prevY = e.clientY;

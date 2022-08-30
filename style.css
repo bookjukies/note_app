@@ -5,10 +5,15 @@
     width: 100vw;
     height: 100vh;
 }
-
+.container{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: aqua;
+}
 .note_app .item{
     height: 50px;
     width: 50px;
     background-color: orange;
-    position: absolute;
+    position: relative;
 }
