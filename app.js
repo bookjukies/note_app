@@ -44,3 +44,5 @@ function mousedown(e) {
     window.removeEventListener(`mouseup`, mouseup);
   }
 }
+title = document.querySelector(`.note h2`).textContent;
+console.log(title);
