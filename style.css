@@ -85,6 +85,26 @@
     font-weight: bolder;
     text-transform: capitalize;
 }
+
+.title_container{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    text-align: center;
+    height: 1.5rem;
+    font-size: 1.2rem;
+}
+.title{
+    font-weight: bolder;
+}
+.edit{
+    /* visibility: hidden; */
+}
+.btn_container{
+    width: 6rem;
+    display: flex;
+    justify-content: space-around;
+}
 /* utility classes */
 .none{
     display: none;
