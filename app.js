@@ -1,6 +1,23 @@
-const el = document.querySelector('.item');
-const container = document.querySelector(`.container`);
+const el = document.querySelector('.drag');
+const note_app = document.querySelector(`.container`);
+const maximize_button = document.querySelector(`.closed`);
+const minimize_button = document.querySelector(`.minimize`);
 
+// display
+maximize_button.classList.add(`none`);
+// minimize
+minimize_button.addEventListener(`click`, () => {
+  note_app.classList.add(`none`);
+  maximize_button.classList.remove(`none`);
+});
+
+// maximize functionality
+
+maximize_button.addEventListener(`click`, () => {
+  note_app.classList.remove(`none`);
+  maximize_button.classList.add(`none`);
+});
+// dragging functionality
 el.addEventListener(`mousedown`, mousedown);
 
 function mousedown(e) {
@@ -14,10 +31,10 @@ function mousedown(e) {
     let newX = prevX - e.clientX;
     let newY = prevY - e.clientY;
 
-    const rect = container.getBoundingClientRect();
+    const rect = note_app.getBoundingClientRect();
 
-    container.style.left = rect.left - newX + `px`;
-    container.style.top = rect.top - newY + `px`;
+    note_app.style.left = rect.left - newX + `px`;
+    note_app.style.top = rect.top - newY + `px`;
 
     prevX = e.clientX;
     prevY = e.clientY;
