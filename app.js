@@ -2,6 +2,8 @@ const el = document.querySelector('.drag');
 const note_app = document.querySelector(`.container`);
 const maximize_button = document.querySelector(`.closed`);
 const minimize_button = document.querySelector(`.minimize`);
+const add_button = document.querySelector(`.add`);
+const note = document.querySelector(`.note`);
 
 // display
 maximize_button.classList.add(`none`);
@@ -44,5 +46,32 @@ function mousedown(e) {
     window.removeEventListener(`mouseup`, mouseup);
   }
 }
-title = document.querySelector(`.note h2`).textContent;
-console.log(title);
+
+add_button.addEventListener(`click`, () => {
+  const note_div = document.createElement(`div`);
+  const title_div = document.createElement(`div`);
+  const title = document.createElement(`h4`);
+  const save_button = document.createElement(`button`);
+  const text_body = document.createElement(`p`);
+
+  //text content
+  const node = document.createTextNode(`Note 1`);
+  const button_text = document.createTextNode(`save`);
+  const text_body_placeholder = document.createTextNode(`body`);
+
+  //appending to the screen
+  note_div.appendChild(title_div);
+  title_div.appendChild(title);
+  title_div.appendChild(save_button);
+  text_body.appendChild(text_body_placeholder);
+
+  title.appendChild(node);
+  save_button.appendChild(button_text);
+  note_div.appendChild(text_body);
+  note.appendChild(note_div);
+  //editing
+  text_body.contentEditable = true;
+  title.contentEditable = true;
+
+  title_div.classList.add(`flex-row-spaced`);
+});

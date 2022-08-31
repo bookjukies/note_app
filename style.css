@@ -53,7 +53,7 @@
 }
 /* contains the notes section */
 .note_container{
-    overflow-y: hidden;
+    overflow-y: scroll;
     max-height: 300px;
 }
 .note{
@@ -71,6 +71,10 @@
     width: 18px;
     height: 10px;
     background-color: rgb(59, 2, 2);
+}
+
+.note h4{
+    background-color: white;
 }
 /* closed note */
 .closed{
@@ -108,4 +112,18 @@
 /* utility classes */
 .none{
     display: none;
+}
+
+.flex-row-spaced{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.note button{
+    height: 20px;
+}
+.note h4{
+    flex: 1;
+    text-align: center;
 }
