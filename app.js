@@ -1,9 +1,10 @@
-const el = document.querySelector('.drag');
+const drag = document.querySelector('.drag');
 const note_app = document.querySelector(`.container`);
 const maximize_button = document.querySelector(`.closed`);
 const minimize_button = document.querySelector(`.minimize`);
 const add_button = document.querySelector(`.add`);
 const note = document.querySelector(`.note`);
+const save_buttons = note.querySelectorAll(`buttons`); //adding anothor button type is a !!!BREAKING CHANGE!!!(currently only has save button)
 
 // display
 maximize_button.classList.add(`none`);
@@ -20,7 +21,7 @@ maximize_button.addEventListener(`click`, () => {
   maximize_button.classList.add(`none`);
 });
 // dragging functionality
-el.addEventListener(`mousedown`, mousedown);
+drag.addEventListener(`mousedown`, mousedown);
 
 function mousedown(e) {
   window.addEventListener(`mousemove`, mousemove);
@@ -46,18 +47,36 @@ function mousedown(e) {
     window.removeEventListener(`mouseup`, mouseup);
   }
 }
+// id track
+let note_id = 1;
+function id_traker() {
+  return note_id++;
+}
+//save button
+function save(e) {
+  let id = e.currentTarget.id.slice(4);
+  const note = document.getElementById(id);
+  let title = note.querySelector(`h4`);
+  let content = note.querySelector(`p`);
 
+  let msg = `${title.textContent} saved`;
+  alert(msg);
+}
 add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
   const title = document.createElement(`h4`);
   const save_button = document.createElement(`button`);
   const text_body = document.createElement(`p`);
-
+  // id track
+  const id = id_traker();
   //text content
-  const node = document.createTextNode(`Note 1`);
+  const node = document.createTextNode(`Note ${id}`);
   const button_text = document.createTextNode(`save`);
   const text_body_placeholder = document.createTextNode(`body`);
+
+  save_button.setAttribute(`id`, `btn-${id}`);
+  note_div.setAttribute(`id`, `${id}`);
 
   //appending to the screen
   note_div.appendChild(title_div);
@@ -73,5 +92,10 @@ add_button.addEventListener(`click`, () => {
   text_body.contentEditable = true;
   title.contentEditable = true;
 
-  title_div.classList.add(`flex-row-spaced`);
+  title_div.classList.add(`flex-row-spaced`); //display flex
+  save_button.classList.add(`save`);
+
+  //save functionality
+
+  save_button.addEventListener(`click`, save);
 });
