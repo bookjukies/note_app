@@ -142,9 +142,12 @@
     padding: 7px;
     background-color: var(--green);
     border-radius: 8px;
+    z-index: 1007;
+
 }
 .mini,.expand{
     width: 15px;
     padding: 0 16px;
+    z-index: 1007;
 }
 

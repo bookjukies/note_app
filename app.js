@@ -62,6 +62,7 @@ function save(e) {
   let msg = `${title.textContent} saved`;
   alert(msg);
 }
+
 add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
@@ -98,6 +99,16 @@ add_button.addEventListener(`click`, () => {
 
   title_div.classList.add(`flex-row-spaced`); //display flex
   // save_button.classList.add(`save`);
+
+  //expend and collapse
+  const [expand_btn, mini_btn, save_btn] = [
+    document.querySelector(`.expand`),
+    document.querySelector(`.min`),
+    document.querySelector(`.save`),
+  ];
+  if (!expand_btn.classList.contains(`none`)) {
+    expand_btn.classList.add(`none`);
+  }
 
   //save functionality
 
