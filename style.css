@@ -1,5 +1,8 @@
 :root{
-    
+    --blue: #004c7e; /*tab*/
+    --blue_hover:#1eb9c6; /*hover*/
+    --crean: #fdf8ef; /*backgroung*/
+    --green: #43b77a;
     --tab_button_size: 20px;/* due to the functionality in the js this has to be in px, or else bugs will arise */
 }
 
@@ -12,20 +15,26 @@
     z-index: 1000;
     background-color: rgba(240, 248, 255, 0);
     overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 .container{
-    width: 300px;
-    max-height: 400px;
+    width: 400px;
+    height: 600px;
     position: absolute;
-    background-color: aqua;
+    background-color: var(--crean);
+    border-radius: 5px;
+
 }
 
 /* Tab that contains buttons */
 .tab{
     display: flex;
     justify-content: space-between;
-    background-color: orange;
-    padding: 5px 5px;
+    background-color: var(--blue);
+    padding: 10px 10px;
+    border-radius: 5px;
 }
 .right_tab{
     display: flex;
@@ -34,47 +43,33 @@
 .tab .drag{
     height: var(--tab_button_size);
     width: var(--tab_button_size);
-    background-color: rgb(255, 0, 0);
-    position: absolute;
-    
 }
 .tab .add{
     height: var(--tab_button_size);
     width: var(--tab_button_size);
-    background-color: rgb(0, 17, 255);
-    
     margin: 0 16px;
 }
 .tab .minimize {
     height: var(--tab_button_size);
-    width: var(--tab_button_size);
-    background-color: rgb(144, 0, 255);
-    
+    width: var(--tab_button_size)   
 }
 /* contains the notes section */
 .note_container{
-    overflow-y: scroll;
-    max-height: 300px;
+    padding: 12px;
+   
+    height: 600px;
+    overflow-y: auto;
 }
 .note{
     width: 100%;
-    height: 200px;
-}
-.note_container::-webkit-scrollbar{
-    width: 20px;
-    height: 300px;
-}
-.note_container::-webkit-scrollbar-track {
-    background-color: blueviolet;
-}
-.note_container::-webkit-scrollbar{
-    width: 18px;
-    height: 10px;
-    background-color: rgb(59, 2, 2);
+    height: 88%;
+    overflow-y: inherit;
+    
 }
 
+
 .note h4{
-    background-color: white;
+    
 }
 /* closed note */
 .closed{
@@ -82,21 +77,31 @@
     bottom: 0;
     right: 45vw;
     color: white;
-    background-color: rgba(0, 0, 0, 0.345);
-    padding: .5rem 1rem;
-    border-radius: 1rem 1rem 0 0;
-    font-size: 1.2rem;
+    background-color: var(--blue);
+    padding: 8px;
+    border-radius: 8px 0;
     font-weight: bolder;
     text-transform: capitalize;
+    display: flex;
+    justify-content: space-between;
 }
-
+.closed div img{
+    margin-left: 32px;
+    height: 15px;
+    margin-top: 0;
+}
+.closed img{
+    width: var(--tab_button_size);
+    height: var(--tab_button_size);
+    margin-right: 5px;
+}
 .title_container{
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
     text-align: center;
-    height: 1.5rem;
-    font-size: 1.2rem;
+    height: 24px;
+    font-size: 18px;
 }
 .title{
     font-weight: bolder;
@@ -105,7 +110,7 @@
     /* visibility: hidden; */
 }
 .btn_container{
-    width: 6rem;
+    width: 96px;
     display: flex;
     justify-content: space-around;
 }
@@ -126,8 +131,20 @@
 }
 .note h4{
     flex: 1;
-    text-align: center;
-}
-.save{
     
 }
+.controls{
+    display: flex;
+
+}
+.save{
+    width: 15px;
+    padding: 7px;
+    background-color: var(--green);
+    border-radius: 8px;
+}
+.mini,.expand{
+    width: 15px;
+    padding: 0 16px;
+}
+

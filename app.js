@@ -66,16 +66,20 @@ add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
   const title = document.createElement(`h4`);
-  const save_button = document.createElement(`button`);
+  const save_button = document.createElement(`div`);
   const text_body = document.createElement(`p`);
   // id track
   const id = id_traker();
   //text content
   const node = document.createTextNode(`Note ${id}`);
-  const button_text = document.createTextNode(`save`);
+  save_button.innerHTML = `<div class="controls">
+          <img class="save" src="./SVGs/save.svg" alt="save button" />
+          <img class="mini" src="./SVGs/mini.svg" alt="collapse button" />
+          <img class="expand" src="./SVGs/expand.svg" alt="expend button" />
+        </div>`;
   const text_body_placeholder = document.createTextNode(`body`);
 
-  save_button.setAttribute(`id`, `btn-${id}`);
+  // save_button.setAttribute(`id`, `btn-${id}`);
   note_div.setAttribute(`id`, `${id}`);
 
   //appending to the screen
@@ -85,7 +89,7 @@ add_button.addEventListener(`click`, () => {
   text_body.appendChild(text_body_placeholder);
 
   title.appendChild(node);
-  save_button.appendChild(button_text);
+  // save_button.appendChild(button_text);
   note_div.appendChild(text_body);
   note.appendChild(note_div);
   //editing
@@ -93,9 +97,9 @@ add_button.addEventListener(`click`, () => {
   title.contentEditable = true;
 
   title_div.classList.add(`flex-row-spaced`); //display flex
-  save_button.classList.add(`save`);
+  // save_button.classList.add(`save`);
 
   //save functionality
 
-  save_button.addEventListener(`click`, save);
+  // save_button.addEventListener(`click`, save);
 });
