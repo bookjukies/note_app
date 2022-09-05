@@ -20,30 +20,50 @@ maximize_button.addEventListener(`click`, () => {
   maximize_button.classList.add(`qn-none`);
 });
 // dragging functionality
-drag.addEventListener(`mousedown`, mousedown);
 
-function mousedown(e) {
-  window.addEventListener(`mousemove`, mousemove);
-  window.addEventListener(`mouseup`, mouseup);
+dragElement(document.getElementById('mydiv'));
 
-  let prevX = e.clientX;
-  let prevY = e.clientY;
-
-  function mousemove(e) {
-    let newX = prevX - e.clientX;
-    let newY = prevY - e.clientY;
-
-    const rect = note_app.getBoundingClientRect();
-
-    note_app.style.left = rect.left - newX + `px`;
-    note_app.style.top = rect.top - newY + `px`;
-
-    prevX = e.clientX;
-    prevY = e.clientY;
+function dragElement(elmnt) {
+  var pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
+  if (document.getElementById(elmnt.id + 'header')) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
   }
-  function mouseup() {
-    window.removeEventListener(`mousemove`, mousemove);
-    window.removeEventListener(`mouseup`, mouseup);
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
+    elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
   }
 }
 // id track
@@ -76,14 +96,14 @@ add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
   const title = document.createElement(`h4`);
-  const save_button = document.createElement(`div`);
+  const controls = document.createElement(`div`);
   const text_body = document.createElement(`p`);
   const placehold = document.createElement(`span`);
   // id track
   const id = id_traker();
   //text content
   const node = document.createTextNode(`Note ${id}`);
-  save_button.innerHTML = `<div class="qn-controls">
+  controls.innerHTML = `<div class="qn-controls">
           <img class="qn-save" id="s-${id}" src="./SVGs/save.svg" alt="save button" />
           <img class="qn-mini" id="m-${id}" src="./SVGs/mini.svg" alt="collapse button" />
           <img class="qn-expand qn-none" id="e-${id}" src="./SVGs/expand.svg" alt="expend button" />
@@ -93,18 +113,16 @@ add_button.addEventListener(`click`, () => {
   );
   placehold.textContent = `l`;
 
-  // save_button.setAttribute(`id`, `btn-${id}`);
   note_div.setAttribute(`id`, `${id}`);
 
   //appending to the screen
   note_div.appendChild(title_div);
   title_div.appendChild(title);
-  title_div.appendChild(save_button);
+  title_div.appendChild(controls);
   text_body.appendChild(text_body_placeholder);
   note.append(placehold);
 
   title.appendChild(node);
-  // save_button.appendChild(button_text);
   note_div.appendChild(text_body);
   note.appendChild(note_div);
   //editing
@@ -112,11 +130,7 @@ add_button.addEventListener(`click`, () => {
   title.contentEditable = true;
 
   title_div.classList.add(`qn-flex-row-spaced`); //display flex
-  // save_button.classList.add(`save`);
-
-  //expend and collapse
-
   //save functionality
 
-  save_button.addEventListener(`click`, save);
+  controls.addEventListener(`click`, save);
 });

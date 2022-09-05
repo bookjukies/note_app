@@ -1,7 +1,7 @@
 :root{
     --blue: #004c7e; /*tab*/
     --blue_hover:#1eb9c6; /*hover*/
-    --crean: #ffeac4; /*backgroung*/
+    --crean: #fdf8ef; /*backgroung*/
     --green: #43b77a;
     --tab_button_size: 20px;/* due to the functionality in the js this has to be in px, or else bugs will arise */
 }
@@ -45,6 +45,7 @@
 .qn-tab .qn-drag{
     height: var(--tab_button_size);
     width: var(--tab_button_size);
+
 }
 .qn-tab .qn-add{
     height: var(--tab_button_size);
@@ -159,6 +160,7 @@
     border-radius: 8px;
 }
 .qn-note p {
+    padding-bottom: 16px;
 
 }
 .qn-note span{
@@ -189,6 +191,7 @@
     bottom: 125%;
     left: 50%;
     margin-left: -80px;
+    opacity: 0;
 }
 
 /* Popup arrow */
@@ -201,4 +204,15 @@
     border-width: 5px;
     border-style: solid;
     border-color: var(--blue_hover) transparent transparent transparent;
+    opacity: 0;
 }
+
+.qn-add .qn-popuptext:hover{
+    opacity: 100%;
+}
+
+.qn-add .qn-popuptext:hover::after {
+    opacity: 100%;
+}
+
+
