@@ -6,7 +6,7 @@
     --tab_button_size: 20px;/* due to the functionality in the js this has to be in px, or else bugs will arise */
 }
 
-.note_app{
+.qn-note_app{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -19,124 +19,127 @@
     top: 0;
     left: 0;
 }
-.container{
+.qn-container{
     width: 400px;
     height: 600px;
     position: absolute;
     background-color: var(--crean);
     border-radius: 5px;
+    top:40px;
+    right: 30px;
 
 }
 
 /* Tab that contains buttons */
-.tab{
+.qn-tab{
     display: flex;
     justify-content: space-between;
     background-color: var(--blue);
     padding: 10px 10px;
     border-radius: 5px;
 }
-.right_tab{
+.qn-right_tab{
     display: flex;
     justify-content: space-between;
 }
-.tab .drag{
+.qn-tab .qn-drag{
     height: var(--tab_button_size);
     width: var(--tab_button_size);
 }
-.tab .add{
+.qn-tab .qn-add{
     height: var(--tab_button_size);
     width: var(--tab_button_size);
     margin: 0 16px;
 }
-.tab .minimize {
+.qn-tab .qn-minimize {
     height: var(--tab_button_size);
     width: var(--tab_button_size)   
 }
 /* contains the notes section */
-.note_container{
+.qn-note_container{
     padding: 12px;
    
     height: 600px;
     overflow-y: auto;
 }
-.note{
+.qn-note{
     width: 100%;
     height: 88%;
-    overflow-y: inherit;
-    
+    overflow-y: inherit; 
 }
 
 
-.note h4{
+.qn-note h4{
     
 }
 /* closed note */
-.closed{
+.qn-closed{
     position: fixed;
     bottom: 0;
-    right: 45vw;
+    right: 30px;
     color: white;
     background-color: var(--blue);
     padding: 8px;
-    border-radius: 8px 0;
+    border-radius: 8px 8px 0 0;
     font-weight: bolder;
     text-transform: capitalize;
     display: flex;
     justify-content: space-between;
 }
-.closed div img{
+.qn-closed div img{
     margin-left: 32px;
     height: 15px;
     margin-top: 0;
 }
-.closed img{
+.qn-closed img{
     width: var(--tab_button_size);
     height: var(--tab_button_size);
     margin-right: 5px;
 }
-.title_container{
+.qn-title_container{
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
     text-align: center;
-    height: 24px;
+    height: 15px;
     font-size: 18px;
 }
-.title{
+.qn-title{
     font-weight: bolder;
 }
-.edit{
+.qn-edit{
     /* visibility: hidden; */
 }
-.btn_container{
+.qn-btn_container{
     width: 96px;
     display: flex;
     justify-content: space-around;
 }
 /* utility classes */
-.none{
+.qn-none{
     display: none;
 }
 
-.flex-row-spaced{
+.qn-flex-row-spaced{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-.note button{
+.qn-note button{
     height: 20px;
     z-index: 1002;
 }
-.note h4{
+.qn-note h4{
     flex: 1;
+    padding: 0;
     
 }
-.controls{
+.qn-controls{
     display: flex;
+
 }
-.save{
+.qn-save{
     width: 15px;
     padding: 7px;
     background-color: var(--green);
@@ -144,14 +147,58 @@
     z-index: 1007;
 
 }
-.mini,.expand{
+.qn-mini,.qn-expand{
     width: 15px;
     padding: 0 16px;
     z-index: 1007;
 }
 
-.note div{
+.qn-note div{
     background-color: white;
     padding:  0 8px;
     border-radius: 8px;
+}
+.qn-note p {
+
+}
+.qn-note span{
+    visibility: hidden;
+}
+
+.qn-add {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.qn-add .qn-popuptext {
+   
+    width: 135px;
+    background-color: var(--blue_hover);
+    color: white;
+    text-align: center;
+    border-radius: 16px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.qn-add .qn-popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--blue_hover) transparent transparent transparent;
 }
