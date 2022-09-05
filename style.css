@@ -1,7 +1,7 @@
 :root{
     --blue: #004c7e; /*tab*/
     --blue_hover:#1eb9c6; /*hover*/
-    --crean: #fdf8ef; /*backgroung*/
+    --crean: #ffeac4; /*backgroung*/
     --green: #43b77a;
     --tab_button_size: 20px;/* due to the functionality in the js this has to be in px, or else bugs will arise */
 }
@@ -135,7 +135,6 @@
 }
 .controls{
     display: flex;
-
 }
 .save{
     width: 15px;
@@ -151,3 +150,8 @@
     z-index: 1007;
 }
 
+.note div{
+    background-color: white;
+    padding:  0 8px;
+    border-radius: 8px;
+}

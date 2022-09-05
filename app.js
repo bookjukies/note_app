@@ -54,13 +54,23 @@ function id_traker() {
 }
 //save button
 function save(e) {
-  let id = e.currentTarget.id.slice(4);
-  const note = document.getElementById(id);
-  let title = note.querySelector(`h4`);
-  let content = note.querySelector(`p`);
+  const para = e.currentTarget.parentElement.parentElement.querySelector(`p`);
+  const expand = e.currentTarget.querySelector(`.expand`);
+  const mini = e.currentTarget.querySelector(`.mini`);
 
-  let msg = `${title.textContent} saved`;
-  alert(msg);
+  if (e.target.classList.contains(`save`)) {
+    alert(`note saved`);
+  }
+  if (e.target.classList.contains(`mini`)) {
+    para.classList.add(`none`);
+    mini.classList.add(`none`);
+    expand.classList.remove(`none`);
+  }
+  if (e.target.classList.contains(`expand`)) {
+    para.classList.remove(`none`);
+    mini.classList.remove(`none`);
+    expand.classList.add(`none`);
+  }
 }
 
 add_button.addEventListener(`click`, () => {
@@ -74,11 +84,13 @@ add_button.addEventListener(`click`, () => {
   //text content
   const node = document.createTextNode(`Note ${id}`);
   save_button.innerHTML = `<div class="controls">
-          <img class="save" src="./SVGs/save.svg" alt="save button" />
-          <img class="mini" src="./SVGs/mini.svg" alt="collapse button" />
-          <img class="expand" src="./SVGs/expand.svg" alt="expend button" />
+          <img class="save" id="s-${id}" src="./SVGs/save.svg" alt="save button" />
+          <img class="mini" id="m-${id}" src="./SVGs/mini.svg" alt="collapse button" />
+          <img class="expand none" id="e-${id}" src="./SVGs/expand.svg" alt="expend button" />
         </div>`;
-  const text_body_placeholder = document.createTextNode(`body`);
+  const text_body_placeholder = document.createTextNode(
+    `This is a note content`
+  );
 
   // save_button.setAttribute(`id`, `btn-${id}`);
   note_div.setAttribute(`id`, `${id}`);
@@ -101,16 +113,8 @@ add_button.addEventListener(`click`, () => {
   // save_button.classList.add(`save`);
 
   //expend and collapse
-  const [expand_btn, mini_btn, save_btn] = [
-    document.querySelector(`.expand`),
-    document.querySelector(`.min`),
-    document.querySelector(`.save`),
-  ];
-  if (!expand_btn.classList.contains(`none`)) {
-    expand_btn.classList.add(`none`);
-  }
 
   //save functionality
 
-  // save_button.addEventListener(`click`, save);
+  save_button.addEventListener(`click`, save);
 });
