@@ -4,14 +4,13 @@ const maximize_button = document.querySelector(`.qn-closed`);
 const minimize_button = document.querySelector(`.qn-minimize`);
 const add_button = document.querySelector(`.qn-add`);
 const note = document.querySelector(`.qn-note`);
+let here;
 
 let data_faker = [];
 const loadCharacters = async () => {
   try {
     const res = await fetch('https://hp-api.herokuapp.com/api/characters');
     data_faker = await res.json();
-    // displayCharacters(data_faker);
-    // console.log(data_faker);
   } catch (err) {
     console.error(err);
   }
@@ -122,8 +121,8 @@ function displayData(data) {
     .map((person) => {
       return `
             <li class="qn-person">
-            <img class="qn-person-image" src="${person.image} Alt="NA"></img>
-            <divclass="qn-person-image">${person.name}</div> 
+            <img class="qn-person-image" src="${person.image}" alt='NA'></img>
+            <div class="qn-person-name">${person.name}</div> 
             </li>
         `;
     })
@@ -136,9 +135,16 @@ function displayData(data) {
 //search
 
 function search_at(e) {
+  here = e.currentTarget.offsetTop;
+
   let seach_text = e.target.textContent;
   if (seach_text.includes(`@`)) {
+    // let note_top = e.target.offsetTop;
+    // e.target.style.top = e.target.offsetTop - e.target.offsetTop + `px`;
+    console.log(here);
+
     loadCharacters();
+
     let at = seach_text.indexOf(`@`) + 1;
     let start = seach_text.slice(at);
 
@@ -172,7 +178,7 @@ add_button.addEventListener(`click`, () => {
     `This is a note content`
   );
 
-  placehold.textContent = `l`;
+  placehold.innerHTML = `<div id="pl-${id}">l</div>`;
 
   note_div.setAttribute(`id`, `${id}`);
 
