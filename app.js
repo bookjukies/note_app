@@ -5,6 +5,19 @@ const minimize_button = document.querySelector(`.qn-minimize`);
 const add_button = document.querySelector(`.qn-add`);
 const note = document.querySelector(`.qn-note`);
 
+let data_faker = [];
+const loadCharacters = async () => {
+  try {
+    const res = await fetch('https://hp-api.herokuapp.com/api/characters');
+    data_faker = await res.json();
+    // displayCharacters(data_faker);
+    // console.log(data_faker);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+let filterd_list = [];
 // display
 maximize_button.classList.add(`qn-none`);
 // minimize
@@ -91,7 +104,53 @@ function save(e) {
     expand.classList.add(`qn-none`);
   }
 }
+// modal
+const modal = document.createElement(`div`);
 
+function displayData(data) {
+  modal.innerHTML = `
+  <h4>People</h4> 
+    <div>
+      <ul class="qn-people">
+      </ul>
+    </div>
+    <h4>No results</h4> 
+  `;
+  const people = modal.querySelector(`.qn-people`);
+  // populating the modal with the search results
+  const data_layout = data
+    .map((person) => {
+      return `
+            <li class="qn-person">
+            <img class="qn-person-image" src="${person.image} Alt="NA"></img>
+            <divclass="qn-person-image">${person.name}</div> 
+            </li>
+        `;
+    })
+    .join('');
+
+  people.innerHTML = data_layout;
+
+  modal.classList.add(`search_modal`);
+}
+//search
+
+function search_at(e) {
+  let seach_text = e.target.textContent;
+  if (seach_text.includes(`@`)) {
+    loadCharacters();
+    let at = seach_text.indexOf(`@`) + 1;
+    let start = seach_text.slice(at);
+
+    if (start.length >= 3) {
+      filterd_list = data_faker.filter((person) => {
+        return person.name.includes(`${start}`);
+      });
+      displayData(filterd_list);
+    }
+  }
+}
+//adning a note
 add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
@@ -99,6 +158,7 @@ add_button.addEventListener(`click`, () => {
   const controls = document.createElement(`div`);
   const text_body = document.createElement(`p`);
   const placehold = document.createElement(`span`);
+
   // id track
   const id = id_traker();
   //text content
@@ -111,11 +171,13 @@ add_button.addEventListener(`click`, () => {
   const text_body_placeholder = document.createTextNode(
     `This is a note content`
   );
+
   placehold.textContent = `l`;
 
   note_div.setAttribute(`id`, `${id}`);
 
   //appending to the screen
+  note_div.prepend(modal);
   note_div.appendChild(title_div);
   title_div.appendChild(title);
   title_div.appendChild(controls);
@@ -129,6 +191,8 @@ add_button.addEventListener(`click`, () => {
   text_body.contentEditable = true;
   title.contentEditable = true;
 
+  // search functionality
+  text_body.addEventListener(`input`, search_at);
   title_div.classList.add(`qn-flex-row-spaced`); //display flex
   //save functionality
 

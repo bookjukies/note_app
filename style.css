@@ -217,4 +217,29 @@
     opacity: 100%;
 }
 
+/* seach functionality */
+.search_modal{
+    z-index: 50000;
+    position: absolute;
+    top: 5rem;
+    background-color: black;
+    width: 85%;
+
+}
+.qn-people li{
+    list-style: none;
+}
+.qn-person{
+    display: grid;
+    grid-template-areas: "img name";
+    grid-template-columns: 1fr 4fr;
+    justify-content: center;
+    align-items: center;
+}
+.qn-person-image{
+    width: 30px;
+    height: 30px;
+    border-radius: 60px;
+    grid-area: img;
+}
 
