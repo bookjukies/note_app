@@ -165,6 +165,10 @@
     
 
 }
+.qn-note p:active,.qn-note p:focus,.qn-note p::selection{
+    border: none;
+}
+
 .qn-note span{
     visibility: hidden;
 }
@@ -219,22 +223,24 @@
 
 /* seach functionality */
 .search_modal{
-    z-index: 50000;
-    position: absolute;
-    top: 5rem;
-    background-color: black;
-    width: 85%;
+    z-index: 1010;
+    /* position: absolute;
+    top: 5rem; */
+   
+    /* width: 85%; */
+    box-shadow: 2px 2px 6px  black,-2px -2px 6px black;
+    max-height: 300px;
+    overflow-y: hidden;
+}
 
-}
-.qn-people li{
-    list-style: none;
-}
 .qn-person{
     display: grid;
     grid-template-areas: "img name";
     grid-template-columns: 1fr 4fr;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
+    z-index: 1011;
 }
 .qn-person-image{
     width: 30px;
@@ -242,4 +248,13 @@
     border-radius: 60px;
     grid-area: img;
 }
-
+.qn-people{
+    max-height: 100px;
+    overflow: hidden;
+}
+.qn-person p{
+    grid-area: name;
+}
+.qn-display-none{
+    display: none;
+}

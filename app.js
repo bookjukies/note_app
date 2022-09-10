@@ -4,8 +4,9 @@ const maximize_button = document.querySelector(`.qn-closed`);
 const minimize_button = document.querySelector(`.qn-minimize`);
 const add_button = document.querySelector(`.qn-add`);
 const note = document.querySelector(`.qn-note`);
-let here;
+let replace;
 
+//fetching users
 let data_faker = [];
 const loadCharacters = async () => {
   try {
@@ -104,71 +105,49 @@ function save(e) {
   }
 }
 // modal
-const modal = document.createElement(`div`);
 
 function displayData(data) {
-  modal.innerHTML = `
-  <h4>People</h4> 
-    <div>
-      <ul class="qn-people">
-      </ul>
-    </div>
-    <h4>No results</h4> 
-  `;
-  const people = modal.querySelector(`.qn-people`);
   // populating the modal with the search results
   const data_layout = data
     .map((person) => {
       return `
-            <li class="qn-person">
-            <img class="qn-person-image" src="${person.image}" alt='NA'></img>
+            <div class="qn-person">
+            <img class="qn-person-image" src="${person.image}" id="${person.name}"></img>
             <div class="qn-person-name">${person.name}</div> 
-            </li>
+            </div>
         `;
     })
     .join('');
 
-  people.innerHTML = data_layout;
+  document.querySelectorAll(`modal`).forEach((modal) => {
+    modal.classList.add(`search_modal`);
+  });
 
-  modal.classList.add(`search_modal`);
+  return data_layout;
 }
 //search
 
-function search_at(e) {
-  here = e.currentTarget.offsetTop;
-
-  let seach_text = e.target.textContent;
-  if (seach_text.includes(`@`)) {
-    // let note_top = e.target.offsetTop;
-    // e.target.style.top = e.target.offsetTop - e.target.offsetTop + `px`;
-    console.log(here);
-
-    loadCharacters();
-
-    let at = seach_text.indexOf(`@`) + 1;
-    let start = seach_text.slice(at);
-
-    if (start.length >= 3) {
-      filterd_list = data_faker.filter((person) => {
-        return person.name.includes(`${start}`);
-      });
-      displayData(filterd_list);
-    }
-  }
-}
 //adning a note
 add_button.addEventListener(`click`, () => {
   const note_div = document.createElement(`div`);
   const title_div = document.createElement(`div`);
   const title = document.createElement(`h4`);
   const controls = document.createElement(`div`);
-  const text_body = document.createElement(`p`);
+
+  const text_body = document.createElement(`div`);
+  const text = document.createElement(`p`);
+
+  text_body.append(text);
   const placehold = document.createElement(`span`);
 
+  const modal = document.createElement(`div`);
+  modal.classList.add(`modal`, `qn-display-none`);
+  text_body.placeholder = `hi`;
   // id track
   const id = id_traker();
   //text content
   const node = document.createTextNode(`Note ${id}`);
+  //note control tab
   controls.innerHTML = `<div class="qn-controls">
           <img class="qn-save" id="s-${id}" src="./SVGs/save.svg" alt="save button" />
           <img class="qn-mini" id="m-${id}" src="./SVGs/mini.svg" alt="collapse button" />
@@ -177,28 +156,93 @@ add_button.addEventListener(`click`, () => {
   const text_body_placeholder = document.createTextNode(
     `This is a note content`
   );
+  text.append(text_body_placeholder);
+  //seach Modal
+  modal.innerHTML = `
+  <h4>People</h4> 
+    <div>
+      <div class="qn-people">
+      </div>
+    </div>
+    <h4 class="qn-display-none result">No results</h4> 
+  `;
 
-  placehold.innerHTML = `<div id="pl-${id}">l</div>`;
+  //
+
+  placehold.innerHTML = `<div id="pl-${id}"></div>`;
 
   note_div.setAttribute(`id`, `${id}`);
-
+  //
+  modal.contentEditable = false;
+  modal.style.visibility = 'visible';
   //appending to the screen
-  note_div.prepend(modal);
+
   note_div.appendChild(title_div);
   title_div.appendChild(title);
   title_div.appendChild(controls);
-  text_body.appendChild(text_body_placeholder);
+
+  text_body.prepend(modal);
   note.append(placehold);
+  // text_body.prepend(modal);
 
   title.appendChild(node);
   note_div.appendChild(text_body);
   note.appendChild(note_div);
   //editing
-  text_body.contentEditable = true;
+  text.contentEditable = true;
   title.contentEditable = true;
 
+  //ease of typing
+  text.addEventListener(`click`, (current) => {
+    if (current.target.textContent === `This is a note content`) {
+      current.target.textContent = ``;
+    }
+  });
+
   // search functionality
-  text_body.addEventListener(`input`, search_at);
+  text_body.addEventListener(`input`, (e) => {
+    let seach_text = e.target.textContent;
+    if (e.target.textContent === ``) {
+      // modal.querySelector(`.result`).classList.add(`qn-display-none`);
+      console.log(`hi`);
+    }
+    if (seach_text.includes(`@`)) {
+      loadCharacters();
+
+      let show = e.currentTarget.querySelector(`.modal`);
+
+      let at = seach_text.indexOf(`@`) + 1;
+      let start = seach_text.slice(at);
+
+      if (start.length <= 2) {
+        modal.querySelector(`.result`).classList.add(`qn-display-none`);
+      }
+      if (start.length >= 3) {
+        show.classList.remove(`qn-display-none`);
+        filterd_list = data_faker.filter((person) => {
+          return person.name.includes(`${start}`);
+        });
+
+        const people = e.target.parentElement.querySelector(`.qn-people`);
+        people.innerHTML = displayData(filterd_list);
+        if (start.length >= 4 && !modal.querySelector(`.qn-person-name`)) {
+        }
+
+        modal.addEventListener(`click`, (word) => {
+          if (word.target.classList.contains('qn-person-name')) {
+            show.classList.add(`qn-display-none`);
+            replace = word.target.textContent;
+            e.target.textContent = seach_text.slice(0, at - 1) + ` ` + replace;
+          }
+        });
+        document.addEventListener(`keydown`, (event) => {
+          if (event.isComposing || event.key === `Enter`) {
+            console.log(`hi`);
+          }
+        });
+      }
+    }
+  });
   title_div.classList.add(`qn-flex-row-spaced`); //display flex
   //save functionality
 
