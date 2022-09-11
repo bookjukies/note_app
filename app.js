@@ -159,12 +159,14 @@ add_button.addEventListener(`click`, () => {
   text.append(text_body_placeholder);
   //seach Modal
   modal.innerHTML = `
+  <div class="qn-modal-container">
   <h4>People</h4> 
     <div>
       <div class="qn-people">
       </div>
     </div>
     <h4 class="qn-display-none result">No results</h4> 
+    </div>
   `;
 
   //
@@ -197,9 +199,12 @@ add_button.addEventListener(`click`, () => {
     if (current.target.textContent === `This is a note content`) {
       current.target.textContent = ``;
     }
-    text.onmouseleave = (event) => {
-      modal.classList.add(`qn-display-none`);
-    };
+    // text.onmouseleave = (event) => {
+    //   modal.classList.add(`qn-display-none`);
+    //   if (current.target.textContent === ``) {
+    //     current.target.textContent = `This is a note content`;
+    //   }
+    // };
   });
 
   // search functionality
@@ -217,8 +222,8 @@ add_button.addEventListener(`click`, () => {
       let at = seach_text.indexOf(`@`) + 1;
       let start = seach_text.slice(at);
 
-      if (start.length <= 2) {
-        modal.classList.add(`qn-display-none`);
+      if (start.length < 3) {
+        show.classList.add(`qn-display-none`);
       }
       if (start.length >= 3) {
         show.classList.remove(`qn-display-none`);
@@ -230,6 +235,8 @@ add_button.addEventListener(`click`, () => {
         people.innerHTML = displayData(filterd_list);
         if (start.length >= 3 && !modal.querySelector(`.qn-person-name`)) {
           modal.querySelector(`.result`).classList.remove(`qn-display-none`);
+        } else {
+          modal.querySelector(`.result`).classList.add(`qn-display-none`);
         }
 
         modal.addEventListener(`click`, (word) => {
@@ -241,11 +248,15 @@ add_button.addEventListener(`click`, () => {
         });
         document.addEventListener(`keydown`, (event) => {
           if (event.isComposing || event.key === `Enter`) {
-            if (modal.querySelector(`.qn-person-name`)) {
+            if (
+              modal.querySelector(`.qn-person-name`) &&
+              seach_text.includes(`@`)
+            ) {
               text.textContent =
                 text.textContent.slice(0, at - 1) +
                 ` ` +
                 modal.querySelector(`.qn-person-name`).textContent;
+              modal.classList.add(`qn-display-none`);
             }
           }
         });

@@ -222,17 +222,11 @@
 }
 
 /* seach functionality */
-.search_modal{
-    z-index: 1010;
-    /* position: absolute;
-    top: 5rem; */
+.qn-modal-container{
    
-    /* width: 85%; */
-    box-shadow: 2px 2px 6px  black,-2px -2px 6px black;
-    max-height: 300px;
-    overflow-y: hidden;
+    box-shadow: 2px 2px 8px 0px black,-2px -2px 8px 0px black;
+    
 }
-
 .qn-person{
     display: grid;
     grid-template-areas: "img name";
@@ -247,14 +241,19 @@
     height: 30px;
     border-radius: 60px;
     grid-area: img;
+    margin: 4px 0;
 }
 .qn-people{
-    max-height: 100px;
-    overflow: hidden;
+    max-height: 120px;
+   
+    overflow-y: auto;
 }
 .qn-person p{
     grid-area: name;
 }
 .qn-display-none{
     display: none;
+}
+.result{
+
 }
