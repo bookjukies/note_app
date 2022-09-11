@@ -249,12 +249,12 @@ add_button.addEventListener(`click`, () => {
             )} <a href="">${replace}</a>`;
             // e.target.contentEditable = false;
           }
-          let links = e.target.querySelectorAll(`a`);
-          links.forEach((link) => {
-            link.addEventListener(`click`, (go_to) => {
-              console.log(go_to);
-            });
-          });
+          // let links = e.target.querySelectorAll(`a`);
+          // links.forEach((link) => {
+          //   link.addEventListener(`click`, (go_to) => {
+          //     console.log(go_to);
+          //   });
+          // });
         });
       }
     }
