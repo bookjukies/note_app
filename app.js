@@ -228,7 +228,7 @@ add_button.addEventListener(`click`, () => {
       if (start.length >= 3) {
         show.classList.remove(`qn-display-none`);
         filterd_list = data_faker.filter((person) => {
-          return person.name.includes(`${start}`);
+          return person.name.toLowerCase().includes(`${start.toLowerCase()}`);
         });
 
         const people = e.target.parentElement.querySelector(`.qn-people`);

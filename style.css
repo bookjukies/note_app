@@ -225,7 +225,8 @@
 .qn-modal-container{
    
     box-shadow: 2px 2px 8px 0px black,-2px -2px 8px 0px black;
-    
+    max-height: 200px ;
+    overflow-y: auto;
 }
 .qn-person{
     display: grid;
@@ -233,7 +234,7 @@
     grid-template-columns: 1fr 4fr;
     justify-content: center;
     align-items: center;
-    white-space: nowrap;
+    
     z-index: 1011;
 }
 .qn-person-image{
@@ -244,9 +245,9 @@
     margin: 4px 0;
 }
 .qn-people{
-    max-height: 120px;
+    max-height: 180px;
    
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 .qn-person p{
     grid-area: name;
@@ -254,6 +255,8 @@
 .qn-display-none{
     display: none;
 }
-.result{
+.qn-person:hover,.qn-person:focus,.qn-person:active{
+
+    background-color: #f0eeee;
 
 }
