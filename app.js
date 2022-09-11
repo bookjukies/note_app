@@ -246,20 +246,6 @@ add_button.addEventListener(`click`, () => {
             e.target.textContent = seach_text.slice(0, at - 1) + ` ` + replace;
           }
         });
-        document.addEventListener(`keydown`, (event) => {
-          if (event.isComposing || event.key === `Enter`) {
-            if (
-              modal.querySelector(`.qn-person-name`) &&
-              seach_text.includes(`@`)
-            ) {
-              text.textContent =
-                text.textContent.slice(0, at - 1) +
-                ` ` +
-                modal.querySelector(`.qn-person-name`).textContent;
-              modal.classList.add(`qn-display-none`);
-            }
-          }
-        });
       }
     }
   });
