@@ -243,8 +243,18 @@ add_button.addEventListener(`click`, () => {
           if (word.target.classList.contains('qn-person-name')) {
             show.classList.add(`qn-display-none`);
             replace = word.target.textContent;
-            e.target.textContent = seach_text.slice(0, at - 1) + ` ` + replace;
+            e.target.innerHTML = `${seach_text.slice(
+              0,
+              at - 1
+            )} <a href="">${replace}</a>`;
+            // e.target.contentEditable = false;
           }
+          let links = e.target.querySelectorAll(`a`);
+          links.forEach((link) => {
+            link.addEventListener(`click`, (go_to) => {
+              console.log(go_to);
+            });
+          });
         });
       }
     }
