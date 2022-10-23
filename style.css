@@ -6,6 +6,10 @@
     --tab_button_size: 20px;/* due to the functionality in the js this has to be in px, or else bugs will arise */
 }
 
+body{
+     background-color: grey;
+}
+
 .qn-note_app{
     padding: 0;
     margin: 0;
